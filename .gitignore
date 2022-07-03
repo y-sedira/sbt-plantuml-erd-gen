@@ -1,0 +1,13 @@
+*.class
+*.log
+/.bloop/
+/.bsp/
+/.idea/
+/project/.bloop/
+/project/target/
+/target/
+/project/.bloop/
+/project/project/
+/project/project/project/target/config-classes/
+/project/project/target/
+/project/target/
