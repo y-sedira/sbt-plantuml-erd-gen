@@ -195,10 +195,11 @@ object DatabaseGenerator {
     }
   }
 
-  def main(args: Array[String]): Unit = {
+  def main(): Unit = {
 
-    val url = "xxx" // connection info
+    val url = "<xxx>" // connection info
     val jdbcDriver = "org.postgresql.Driver"
+    Class.forName(jdbcDriver)
     val user = "xxx"
     val password = "xxx"
     val connection = DriverManager.getConnection(url, user, password)
