@@ -1,6 +1,7 @@
 package io.ysedira
 package erdGenerator
 
+import java.io.File
 import java.nio.file.{Files, Paths}
 import java.sql.{Connection, DriverManager, ResultSet}
 import scala.collection.mutable
@@ -195,14 +196,10 @@ object DatabaseGenerator {
     }
   }
 
-  def main(): Unit = {
+  def main(url: String, driver: String, username: String, password: String)(output: File): Unit = {
 
-    val url = "<xxx>" // connection info
-    val jdbcDriver = "org.postgresql.Driver"
-    Class.forName(jdbcDriver)
-    val user = "xxx"
-    val password = "xxx"
-    val connection = DriverManager.getConnection(url, user, password)
+    Class.forName(driver)
+    val connection = DriverManager.getConnection(url, username, password)
     val tablesWithColumns: List[Table] =
       tables(connection)
         .map(Table.apply)
@@ -230,11 +227,14 @@ object DatabaseGenerator {
         .flatMap(fksImport(connection, _).map(Link.apply).collect {
           case Right(value) => value
         })
+    println(output.toPath)
+    if (!output.exists()) {
+      output.createNewFile()
+    }
     Files.writeString(
-      Paths.get("Tables.puml"),
+      output.toPath,
       new ERD(tablesWithColumns, links).generate()
     )
-    println(new ERD(tablesWithColumns, links).generate())
 
     //
     //    val _pks: ArrayBuffer[ArrayBuffer[Map[String, String]]] =
