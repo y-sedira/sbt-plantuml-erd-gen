@@ -13,13 +13,12 @@ object PlantumlErdGenPlugin extends AutoPlugin {
   import autoImport._
 
   override lazy val projectSettings: Seq[Setting[_]] = Seq(
-    targetZipDir := target.value / "zip",
-    zip := plantumlErdGenTask.value
+    erdGen := plantumlErdGenTask.value
   )
 
   private def plantumlErdGenTask = Def.task {
     val log = sLog.value
     log.info("Generating...")
-    DatabaseGenerator.main()
+    DatabaseGenerator.main(erdGenUrl.value, erdGenDriver.value, erdGenUsername.value, erdGenPassword.value)(erdTargetDir.value)
   }
 }
