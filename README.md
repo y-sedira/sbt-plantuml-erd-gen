@@ -10,3 +10,4 @@ An SBT plugin to generate ERD from existing database.
 - [ ] Documentation
 - [ ] Publish 
 - [ ] Setup actions
+- [ ] Generate SVG/PNG from puml file
