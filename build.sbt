@@ -12,7 +12,8 @@ lazy val root = (project in file("."))
     name := "sbt-plantuml-erd-gen",
     sbtPlugin := true,
     sbtVersion := "1.0.0",
-    libraryDependencies += "org.postgresql" % "postgresql" % "42.2.16",
+    libraryDependencies += "org.postgresql" % "postgresql" % "42.3.6",
+    libraryDependencies += "net.sourceforge.plantuml" % "plantuml" % "1.2022.6",
 
     scriptedLaunchOpts += ("-Dplugin.version=" + version.value),
     scriptedLaunchOpts ++= sys.process.javaVmArguments.filter(
