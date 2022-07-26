@@ -1,7 +1,7 @@
 package sbtErdGenerator
 
 import sbt.Keys._
-import sbt._
+import sbt.{Def, _}
 import _root_.io.ysedira.erdGenerator.DatabaseGenerator
 
 object PlantumlErdGenPlugin extends AutoPlugin {
@@ -16,9 +16,19 @@ object PlantumlErdGenPlugin extends AutoPlugin {
     erdGen := plantumlErdGenTask.value
   )
 
-  private def plantumlErdGenTask = Def.task {
+  private def plantumlErdGenTask: Def.Initialize[Task[Unit]] = Def.taskDyn[Unit] {
     val log = sLog.value
     log.info("Generating...")
-    DatabaseGenerator.main(erdGenUrl.value, erdGenDriver.value, erdGenUsername.value, erdGenPassword.value)(erdTargetDir.value)
+    val target = erdTargetDir.value
+    val isDir = target.isDirectory
+    if (isDir) {
+      Def.task {
+        DatabaseGenerator.generate(erdGenUrl.value, erdGenDriver.value, erdGenUsername.value, erdGenPassword.value)(target)
+      }
+    } else {
+      Def.task {
+        log.error("erdTargetDir is a not a directory")
+      }
+    }
   }
 }
