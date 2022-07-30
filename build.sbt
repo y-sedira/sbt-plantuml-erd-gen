@@ -1,5 +1,6 @@
 import Dependencies._
 import sbt.Keys.version
+import com.jsuereth.sbtpgp.PgpKeys._
 
 ThisBuild / scalaVersion := "2.12.8"
 ThisBuild / organization := "io.github.y-sedira"
@@ -14,6 +15,9 @@ ThisBuild / crossPaths := false
 ThisBuild / pomIncludeRepository := { _ => false }
 ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
 ThisBuild / sonatypeRepository := "https://s01.oss.sonatype.org/service/local"
+
+
+Global / gpgCommand := (baseDirectory.value / "gpg.sh").getAbsolutePath
 
 
 lazy val root = (project in file("."))
