@@ -3,6 +3,9 @@
 /.bloop/
 /.bsp/
 /.idea/
+/.metals/
+/.vscode/
+/project/metals.sbt
 /project/.bloop/
 /project/target/
 /target/
